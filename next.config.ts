@@ -1,14 +1,20 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  basePath: "/qf-portfolio",
+const isGithubActions = process.env.GITHUB_ACTIONS || false
 
-  /**
-   * Disable server-based image optimization. Next.js does not support
-   * dynamic features with static exports.
-   *
-   * @see https://nextjs.org/docs/app/api-reference/components/image#unoptimized
-   */
+let assetPrefix = ''
+let basePath = ''
+
+if (isGithubActions) {
+  const repo = process.env.GITHUB_REPOSITORY.replace(/.*?\//, '')
+  assetPrefix = `/${repo}/`
+  basePath = `/${repo}`
+}
+
+const nextConfig: NextConfig = {
+  output: 'export',
+  assetPrefix: assetPrefix,
+  basePath: basePath,
   images: {
     unoptimized: true,
   },
