@@ -32,7 +32,7 @@ export default function Home() {
           >
             <Image
               className="dark:invert"
-              src="qf-portfolio/vercel.svg"
+              src="/qf-portfolio/vercel.svg"
               alt="Vercel logomark"
               width={20}
               height={20}
@@ -58,7 +58,7 @@ export default function Home() {
         >
           <Image
             aria-hidden
-            src="/file.svg"
+            src="/qf-portfolio/file.svg"
             alt="File icon"
             width={16}
             height={16}
@@ -73,7 +73,7 @@ export default function Home() {
         >
           <Image
             aria-hidden
-            src="/window.svg"
+            src="/qf-portfolio/window.svg"
             alt="Window icon"
             width={16}
             height={16}
@@ -88,7 +88,7 @@ export default function Home() {
         >
           <Image
             aria-hidden
-            src="/globe.svg"
+            src="/qf-portfolio/globe.svg"
             alt="Globe icon"
             width={16}
             height={16}
