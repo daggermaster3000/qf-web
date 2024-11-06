@@ -1,75 +1,76 @@
 'use client'
-
-import { useState, useEffect } from 'react'
-import { Canvas} from '@react-three/fiber'
-import { OrbitControls, Text } from '@react-three/drei'
+import React, { useState, useEffect, useRef, Suspense } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
-// 3D Animation Component
-// function AnimatedCube() {
-//   const meshRef = useRef()
-//   useFrame((state, delta) => {
-//     meshRef.current.rotation.x += delta * 0.2
-//     meshRef.current.rotation.y += delta * 0.3
-//   })
-
-//   return (
-//     <Box ref={meshRef} args={[1, 1, 1]} scale={2}>
-//       <meshStandardMaterial color="#88c0d0" />
-//     </Box>
-//   )
-// }
+import { FaSun, FaMoon } from 'react-icons/fa';
+import { Canvas } from '@react-three/fiber';
+import Model from '@/components/Model'
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('projects')
-  const [theme, setTheme] = useState('light')
+  const [theme, setTheme] = useState('dark')
+  const [animating, setAnimating] = useState(false);
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light')
-  }
+   
+    setTimeout(() => {
+      setTheme(theme === 'light' ? 'dark' : 'light');
+      setAnimating(true);
+      // Stop the animation after the sweep completes
+    }, 100); 
+    setAnimating(false); 
+  };
 
   useEffect(() => {
-    document.body.className = theme
-  }, [theme])
+    document.body.className = theme;
+  }, [theme]);
+
+  const mouse = useRef({ x: 0, y: 0 });
+
+  const handleMouseMove = (event) => {
+    mouse.current = {
+      x: event.clientX - window.innerWidth / 2,
+      y: event.clientY - window.innerHeight / 2,
+    };
+  };
 
   return (
-    <div className={`min-h-screen ${theme} transition-colors duration-300`}>
-      <header className="p-4 flex justify-between items-center bg-primary text-primary-foreground">
-        <h1 className="text-2xl font-bold">Your Name</h1>
+    <div className={`min-h-screen ${theme} ${animating ? 'sweep-animation' : ''} transition-colors duration-1000`}>
+      <header className="p-4 flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Quillan Favey</h1>
         <Button onClick={toggleTheme} variant="outline">
-          Toggle Theme
+          {theme === 'light' ? <FaSun /> : <FaMoon />}
         </Button>
       </header>
 
-      <main className="container mx-auto px-4 py-8">
-        <section className="h-[50vh] mb-12">
-          <Canvas>
-            <ambientLight intensity={0.5} />
-            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-            {/* <AnimatedCube /> */}
-            <OrbitControls />
-            <Text
-              position={[0, 0, 2]}
-              fontSize={0.5}
-              color="#eceff4"
-              anchorX="center"
-              anchorY="middle"
-            >
-              Neuroscience | Code | Music
-            </Text>
+      <main className="container mx-auto px-4 py-8" onMouseMove={handleMouseMove}>
+        <section
+          className="h-[50vh] mb-12 relative flex items-center justify-center rounded-lg overflow-hidden"
+          
+        >
+          <Canvas className="absolute inset-0 z-0">
+            <ambientLight intensity={1.5} />
+            <Suspense fallback={null}>
+              <Model mouse={mouse} />
+            </Suspense>
           </Canvas>
+          <h1 className="text-4xl font-semibold z-10 text-center"><ul className="hovermainlist">
+                  <li>Neuroscience</li>
+                  <li>Coding</li>
+                  <li>Music</li>
+                </ul></h1>
         </section>
 
         <Tabs value={activeSection} onValueChange={setActiveSection} className="mb-12">
-          <TabsList className="grid grid-cols-3 w-full max-w-md mx-auto">
-            <TabsTrigger value="projects">Projects</TabsTrigger>
-            <TabsTrigger value="experience">Experience</TabsTrigger>
-            <TabsTrigger value="cv">CV</TabsTrigger>
+          <TabsList className="grid grid-cols-3 w-full max-w-md mx-auto gap-4">
+            <TabsTrigger value="projects" className="tab-trigger">Projects</TabsTrigger>
+            <TabsTrigger value="experience" className="tab-trigger">Experience</TabsTrigger>
+            <TabsTrigger value="cv" className="tab-trigger">CV</TabsTrigger>
           </TabsList>
+
           <TabsContent value="projects">
-            <Card>
+            <Card className="shadow-lg">
               <CardHeader>
                 <CardTitle>Projects</CardTitle>
                 <CardDescription>Showcase of your coding and research projects</CardDescription>
@@ -84,8 +85,9 @@ export default function Portfolio() {
               </CardContent>
             </Card>
           </TabsContent>
+
           <TabsContent value="experience">
-            <Card>
+            <Card className="shadow-lg">
               <CardHeader>
                 <CardTitle>Experience</CardTitle>
                 <CardDescription>Your professional and academic experience</CardDescription>
@@ -100,8 +102,9 @@ export default function Portfolio() {
               </CardContent>
             </Card>
           </TabsContent>
+
           <TabsContent value="cv">
-            <Card>
+            <Card className="shadow-lg">
               <CardHeader>
                 <CardTitle>Curriculum Vitae</CardTitle>
                 <CardDescription>Your detailed professional background</CardDescription>
@@ -115,9 +118,9 @@ export default function Portfolio() {
         </Tabs>
       </main>
 
-      <footer className="bg-secondary text-secondary-foreground p-4 text-center">
-        <p>&copy; 2023 Your Name. All rights reserved.</p>
+      <footer className="p-4 text-center shadow-md">
+        <p>&copy; 2024 Quillan Favey. All rights reserved.</p>
       </footer>
     </div>
-  )
+  );
 }
