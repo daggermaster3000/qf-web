@@ -34,7 +34,7 @@ const researchProjects = [
     {
         title: 'Neuroscience Msc Thesis',
         description: 'Investigating body axis curvature in zebrafish ciliopathy models using a quantitative approach. An in-depth analysis of CSF flow and muscle fiber anisotropy in zebrafish models.',
-        imageUrl: '/qf-portfolio/fish.jpg',
+        imageUrl: '/qf-portfolio/public/fish.jpg',
         link: 'https://digitalposterbachmannlab.netlify.app/',
         id: 'csf-flow-dynamics'
     },
@@ -55,13 +55,7 @@ const otherProjects = [
         link: 'https://digitalposterbachmannlab.netlify.app/',
         id: 'csf-flow-dynamics'
     },
-    {
-        title: 'iGEM Synthetic Biology Project',
-        description: 'A uni project focusing on producing and testing an antifreeze protein solution to protect crops from cold temperatures.',
-        imageUrl: 'https://static.igem.org/mediawiki/2021/1/1c/T--UNILausanne--fig-6-hardware.jpg',
-        link: 'https://2021.igem.org/Team:UNILausanne/Hardware',
-        id: 'igem'
-    }
+
 ];
 
 type ProjectProps = {
