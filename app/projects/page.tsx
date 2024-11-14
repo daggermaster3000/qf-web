@@ -34,7 +34,7 @@ const researchProjects = [
     {
         title: 'Neuroscience Msc Thesis',
         description: 'Investigating body axis curvature in zebrafish ciliopathy models using a quantitative approach. An in-depth analysis of CSF flow and muscle fiber anisotropy in zebrafish models.',
-        imageUrl: '/qf-portfolio/public/fish.jpg',
+        imageUrl: '/qf-web/fish.jpg',
         link: 'https://digitalposterbachmannlab.netlify.app/',
         id: 'csf-flow-dynamics'
     },
@@ -53,7 +53,7 @@ const otherProjects = [
         description: 'Investigating body axis curvature in zebrafish ciliopathy models using a quantitative approach. An in-depth analysis of CSF flow and muscle fiber anisotropy in zebrafish models.',
         imageUrl: '/fish.jpg',
         link: 'https://digitalposterbachmannlab.netlify.app/',
-        id: 'csf-flow-dynamics'
+        id: 'remoteppg'
     },
 
 ];
