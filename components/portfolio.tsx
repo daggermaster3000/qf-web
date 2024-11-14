@@ -7,6 +7,7 @@ import { FaSun, FaMoon } from 'react-icons/fa';
 import { Canvas } from '@react-three/fiber';
 import Model from '@/components/Model'
 import Link from 'next/link';
+import { MouseEventHandler } from 'react';
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('projects')
@@ -29,7 +30,7 @@ export default function Portfolio() {
 
   const mouse = useRef({ x: 0, y: 0 });
 
-  const handleMouseMove = (event) => {
+  const handleMouseMove: MouseEventHandler<HTMLElement> = (event) => {
     mouse.current = {
       x: event.clientX - window.innerWidth / 2,
       y: event.clientY - window.innerHeight / 2,

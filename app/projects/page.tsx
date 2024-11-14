@@ -64,9 +64,14 @@ const otherProjects = [
     }
 ];
 
-
+type ProjectProps = {
+    title: string;
+    description: string;
+    imageUrl: string;
+    link: string;
+  };
 // Collapsible project component with Lucide's ChevronRight icon
-const Project = ({ title, description, imageUrl, link }) => {
+const Project = ({ title, description, imageUrl, link }: ProjectProps) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (

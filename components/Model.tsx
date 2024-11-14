@@ -1,25 +1,36 @@
 import React, { useRef, useEffect } from 'react';
 import { useLoader, useFrame } from '@react-three/fiber';
 import { GLTFLoader } from 'three-stdlib';
-import { MeshToonMaterial, MeshBasicMaterial, DirectionalLight, AmbientLight, BackSide } from 'three';
+import { MeshToonMaterial, MeshBasicMaterial, BackSide } from 'three';
+import { Mesh, Object3D } from 'three';
+import { MutableRefObject } from 'react';
 
-function Model({ mouse }) {
+type ModelProps = {
+  mouse: MutableRefObject<{
+    x: number;
+    y: number;
+  }>;
+};
+
+
+
+function Model({ mouse }: ModelProps){
   const obj = useLoader(GLTFLoader, 'Brain.glb'); // Use GLTFLoader for .glb files
-  const modelRef = useRef();
+  const modelRef = useRef<Object3D | null>(null);
   const targetRotation = useRef({ x: 0, y: 0 });
 
   // Define cartoon-style material
   const cartoonMaterial = new MeshToonMaterial({
     color: 0xffffff,
-    gradientMap: false, // Optional: use a gradient map for different shading
-    shininess: 10,
+    //gradientMap: false, // Optional: use a gradient map for different shading
+    //shininess: 10,
     emissive: 0x00ff00,
     emissiveIntensity: 1,
-    flatShading: true,
+    //flatShading: true,
     opacity: 1,
     transparent: true,
-    roughness: 0.8,
-    metalness: 1,
+    //roughness: 0.8,
+    //metalness: 1,
     wireframe: true,
   });
 
@@ -30,28 +41,28 @@ function Model({ mouse }) {
     opacity: 1,
     transparent: true,
     wireframe: false, // Wireframe for outline effect
-    linewidth: 1,    // Outline thickness
+    //linewidth: 1,    // Outline thickness
   });
 
   // Lighting setup
-  const directionalLightRef = useRef();
-  const ambientLightRef = useRef();
+  // const directionalLightRef = useRef();
+  // const ambientLightRef = useRef();
 
   useEffect(() => {
     if (obj && obj.scene) {
       // Create and configure lights only when the object is loaded
-      directionalLightRef.current = new DirectionalLight(0xffffff, 1);
-      directionalLightRef.current.position.set(0, 0, 20); // Light position
-      directionalLightRef.current.castShadow = true;
-      directionalLightRef.current.shadow.mapSize.width = 2048;  // Higher value = better shadow quality
-      directionalLightRef.current.shadow.mapSize.height = 2048;
-      //directionalLightRef.current.shadow.bias = -0.01;  // Reduces shadow acne
+      // directionalLightRef.current = new DirectionalLight(0xffffff, 1);
+      // directionalLightRef.current.position.set(0, 0, 20); // Light position
+      // directionalLightRef.current.castShadow = true;
+      // directionalLightRef.current.shadow.mapSize.width = 2048;  // Higher value = better shadow quality
+      // directionalLightRef.current.shadow.mapSize.height = 2048;
+      // //directionalLightRef.current.shadow.bias = -0.01;  // Reduces shadow acne
 
-      ambientLightRef.current = new AmbientLight(0x404040);  // Soft ambient light for general scene illumination
+      // ambientLightRef.current = new AmbientLight(0x404040);  // Soft ambient light for general scene illumination
 
-      // Add lights to the scene
-      obj.scene.add(directionalLightRef.current);
-      obj.scene.add(ambientLightRef.current);
+      // // Add lights to the scene
+      // obj.scene.add(directionalLightRef.current);
+      // obj.scene.add(ambientLightRef.current);
 
       obj.scene.rotation.y = Math.PI; // 90 degrees in radians
     }
@@ -60,19 +71,21 @@ function Model({ mouse }) {
   // Apply materials to meshes
   useEffect(() => {
     if (obj && obj.scene && obj.scene.children) {
-      obj.scene.children.forEach((child) => {
-        if (child.isMesh) {
-          // Apply cartoon material to the object
-          child.material = cartoonMaterial;
+      obj.scene.children.forEach((child: Object3D) => {
+        if ((child as Mesh).isMesh) {
+          const mesh = child as Mesh;
 
-          // Enable casting and receiving shadows
-          child.castShadow = true;
-          child.receiveShadow = true;
+          // Apply cartoon material to the original mesh
+          mesh.material = cartoonMaterial;
 
-          // Create a duplicate mesh for the outline
-          const outlineMesh = child.clone();
+          // Create the outline mesh
+          const outlineMesh = mesh.clone();
           outlineMesh.material = outlineMaterial;
-          outlineMesh.scale.set(1.05, 1.05, 1.05); // Scale it slightly to create the outline effect
+
+          // Scale up the outline mesh slightly
+          outlineMesh.scale.multiplyScalar(1.05);
+
+          // Add the outline mesh as a child of the original mesh's parent
           obj.scene.add(outlineMesh);
         }
       });
