@@ -6,20 +6,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { FaSun, FaMoon } from 'react-icons/fa';
 import { Canvas } from '@react-three/fiber';
 import Model from '@/components/Model'
+import Link from 'next/link';
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('projects')
-  const [theme, setTheme] = useState('dark')
+  const [theme, setTheme] = useState('light')
   const [animating, setAnimating] = useState(false);
 
   const toggleTheme = () => {
-   
+
     setTimeout(() => {
       setTheme(theme === 'light' ? 'dark' : 'light');
       setAnimating(true);
       // Stop the animation after the sweep completes
-    }, 100); 
-    setAnimating(false); 
+    }, 100);
+    setAnimating(false);
   };
 
   useEffect(() => {
@@ -47,7 +48,7 @@ export default function Portfolio() {
       <main className="container mx-auto px-4 py-8" onMouseMove={handleMouseMove}>
         <section
           className="h-[50vh] mb-12 relative flex items-center justify-center rounded-lg overflow-hidden"
-          
+
         >
           <Canvas className="absolute inset-0 z-0">
             <ambientLight intensity={1.5} />
@@ -55,16 +56,24 @@ export default function Portfolio() {
               <Model mouse={mouse} />
             </Suspense>
           </Canvas>
-          <h1 className="text-4xl font-semibold z-10 text-center"><ul className="hovermainlist">
-                  <li>Neuroscience</li>
-                  <li>Coding</li>
-                  <li>Music</li>
-                </ul></h1>
+
+          <h1 className="text-4xl font-semibold z-10 text-center grid">
+            <Link href="/projects#research" className="hover-underline-animation mx-2 mt-4 inline-block">
+              <span>Neuroscience</span>
+            </Link>
+            <Link href="/projects#coding" className="hover-underline-animation mx-2 mt-4 inline-block">
+              <span>Coding</span>
+            </Link>
+            <Link href="/music" className="hover-underline-animation mx-2 mt-4 inline-block">
+              <span>Music</span>
+            </Link>
+          </h1>
         </section>
 
         <Tabs value={activeSection} onValueChange={setActiveSection} className="mb-12">
-          <TabsList className="grid grid-cols-3 w-full max-w-md mx-auto gap-4">
+          <TabsList className="grid grid-cols-4 w-full max-w-md mx-auto gap-4">
             <TabsTrigger value="projects" className="tab-trigger">Projects</TabsTrigger>
+            <TabsTrigger value="Music" className="tab-trigger">Music</TabsTrigger>
             <TabsTrigger value="experience" className="tab-trigger">Experience</TabsTrigger>
             <TabsTrigger value="cv" className="tab-trigger">CV</TabsTrigger>
           </TabsList>
@@ -73,16 +82,53 @@ export default function Portfolio() {
             <Card className="shadow-lg">
               <CardHeader>
                 <CardTitle>Projects</CardTitle>
-                <CardDescription>Showcase of your coding and research projects</CardDescription>
+                <CardDescription>Coding and research projects</CardDescription>
               </CardHeader>
+
+
               <CardContent>
                 <ul className="list-disc pl-5">
-                  <li>Neuroscience Research Project</li>
-                  <li>Machine Learning for EEG Analysis</li>
-                  <li>Music Visualization App</li>
-                  <li>Personal Portfolio Website</li>
+                  <li>
+                    <Link href="/projects#csf-flow-dynamics" className="hover-underline-animation">
+                      <span>CSF flow dynamics in zebrafish spinal canal</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/projects#muscle-fiber-analysis" className="hover-underline-animation">
+                      <span>Muscle fiber anisotropy analysis in zebrafish</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/websites" className="hover-underline-animation">
+                      <span>Websites I designed</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/projects#ppg-heartrate" className="hover-underline-animation">
+                      <span>Remote heartrate PPG</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/other-stuff" className="hover-underline-animation">
+                      <span>Other stuff</span>
+                    </Link>
+                  </li>
                 </ul>
               </CardContent>
+
+
+
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="Music">
+            <Card className="shadow-lg">
+              <CardHeader><CardTitle>Music</CardTitle>
+              </CardHeader>
+              <CardContent>
+
+              </CardContent>
+
             </Card>
           </TabsContent>
 
@@ -90,14 +136,12 @@ export default function Portfolio() {
             <Card className="shadow-lg">
               <CardHeader>
                 <CardTitle>Experience</CardTitle>
-                <CardDescription>Your professional and academic experience</CardDescription>
+                <CardDescription>Professional and academic experience</CardDescription>
               </CardHeader>
               <CardContent>
                 <ul className="list-disc pl-5">
-                  <li>MSc in Neuroscience - University Name</li>
-                  <li>Research Assistant - Neurobiology Lab</li>
-                  <li>Data Analyst Intern - Tech Company</li>
-                  <li>Volunteer - Music Therapy Program</li>
+                  <li>MSc in Neuroscience - University of Zurich</li>
+                  <li>Bsc in Biology - University of Lausanne</li>
                 </ul>
               </CardContent>
             </Card>
@@ -107,7 +151,7 @@ export default function Portfolio() {
             <Card className="shadow-lg">
               <CardHeader>
                 <CardTitle>Curriculum Vitae</CardTitle>
-                <CardDescription>Your detailed professional background</CardDescription>
+                <CardDescription></CardDescription>
               </CardHeader>
               <CardContent>
                 <p>Download my full CV here:</p>
@@ -118,7 +162,7 @@ export default function Portfolio() {
         </Tabs>
       </main>
 
-      <footer className="p-4 text-center shadow-md">
+      <footer className="p-4 text-center ">
         <p>&copy; 2024 Quillan Favey. All rights reserved.</p>
       </footer>
     </div>

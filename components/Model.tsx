@@ -17,10 +17,10 @@ function Model({ mouse }) {
     emissiveIntensity: 1,
     flatShading: true,
     opacity: 1,
-    transparent: false,
+    transparent: true,
     roughness: 0.8,
-    metalness: 0.1,
-    wireframe: false,
+    metalness: 1,
+    wireframe: true,
   });
 
   // Outline material
@@ -28,9 +28,9 @@ function Model({ mouse }) {
     color: 0x000000, // Black outline
     side: BackSide,  // Render the back side of the mesh
     opacity: 1,
-    transparent: false,
-    wireframe: true, // Wireframe for outline effect
-    linewidth: 10,    // Outline thickness
+    transparent: true,
+    wireframe: false, // Wireframe for outline effect
+    linewidth: 1,    // Outline thickness
   });
 
   // Lighting setup

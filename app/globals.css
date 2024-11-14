@@ -44,7 +44,7 @@
     --primary-foreground: 240 5.9% 10%;
     --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
+    --muted: 240 3.7% 15.9%; 
     --muted-foreground: 240 5% 64.9%;
     --accent: 240 3.7% 15.9%;
     --accent-foreground: 0 0% 98%;
@@ -60,6 +60,8 @@
     --chart-5: 340 75% 55%;
     --dot-bg: #000000;
     --hoverlicolor: #ecfdda;
+    --dot-color: #d4d4d4; /* Adjust for contrast on dark background */
+    --hover-arrow-color: #ffffff; /* Updated arrow color for dark theme */
   }
 }
 
@@ -117,37 +119,41 @@ body {
 }
 
 
-
-
-ul li {
-  padding: 0 .5em .25em;
-  cursor: pointer;
+/* Hover underline animation with retro arrow */
+.hover-underline-animation {
   position: relative;
-  overflow: hidden;
-  transition: .3s;
+  
 }
 
-ul li:before {
+.hover-underline-animation span::after {
+  content: '<-';
+  right: 15;
+  opacity: 0;
+  /* font-family: 'Courier New', Courier, monospace; */
+  color: var(--hoverlicolor); /* Inherit or theme-specific */
+  transition: opacity 0.3s ease, right 0.3s ease;
+}
+
+.hover-underline-animation:hover span::after {
+  opacity: 1;
   
-  content: "-";
-  position: absolute;
-  inset: calc(100% - 3px) 0 0 0; /* 3px = the thickness */
-  background: var(--hoverlicolor); /* the color */
-  scale: 0 1;
-  transition: .3s, translate 0s .3s;
 }
-ul:hover li:before {
-  scale: 1;
+
+/* Ensure consistent list style */
+ul {
+  list-style-type: none;
+  
 }
-ul li:hover:before {
-  translate: 0;
-  transition: .3s;
+
+.project{
+  background-color: rgba(220, 245, 243, 0.297);
 }
-ul:hover li:has(~ li:hover):before {
-  translate: 100% 0;
-  transition: .2s .2s,scale 0s .4s;
+
+.project {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
-ul:hover li:hover ~ li:before {
-  translate: -100% 0;
-  transition: .2s .2s,scale 0s .4s;
+.project:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
 }
