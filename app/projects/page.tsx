@@ -46,16 +46,16 @@ const researchProjects = [
     }
 ];
 
-const otherProjects = [
-    {
-        title: 'Neuroscience Msc Thesis',
-        description: 'Investigating body axis curvature in zebrafish ciliopathy models using a quantitative approach. An in-depth analysis of CSF flow and muscle fiber anisotropy in zebrafish models.',
-        imageUrl: 'qf-web/fish.jpg',
-        link: 'https://digitalposterbachmannlab.netlify.app/',
-        id: 'remoteppg'
-    },
+// const otherProjects = [
+//     {
+//         title: 'Neuroscience Msc Thesis',
+//         description: 'Investigating body axis curvature in zebrafish ciliopathy models using a quantitative approach. An in-depth analysis of CSF flow and muscle fiber anisotropy in zebrafish models.',
+//         imageUrl: 'qf-web/fish.jpg',
+//         link: 'https://digitalposterbachmannlab.netlify.app/',
+//         id: 'remoteppg'
+//     },
 
-];
+// ];
 
 type ProjectProps = {
     title: string;
@@ -140,7 +140,7 @@ export default function Projects() {
                 </section>
 
                 {/* Other Projects Section */}
-                <section className="text-center w-full mb-16">
+                {/* <section className="text-center w-full mb-16">
                     <h2 id="other" className="text-3xl font-semibold mb-6">
                         Other Stuff
                     </h2>
@@ -155,7 +155,7 @@ export default function Projects() {
                             />
                         ))}
                     </div>
-                </section>
+                </section> */}
             </div>
         </div>
     );
