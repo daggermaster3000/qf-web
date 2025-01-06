@@ -1,9 +1,8 @@
 // app/projects.tsx
 "use client"
 
-import React, { useState } from 'react';
 import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
+import { Card,  CardDescription, CardHeader,CardFooter, CardTitle } from "@/components/ui/card"
 
 // Data for projects
 const codingProjects = [
@@ -51,7 +50,7 @@ const otherProjects = [
     {
         title: 'Neuroscience Msc Thesis',
         description: 'Investigating body axis curvature in zebrafish ciliopathy models using a quantitative approach. An in-depth analysis of CSF flow and muscle fiber anisotropy in zebrafish models.',
-        imageUrl: '/fish.jpg',
+        imageUrl: 'qf-web/fish.jpg',
         link: 'https://digitalposterbachmannlab.netlify.app/',
         id: 'remoteppg'
     },
@@ -63,40 +62,28 @@ type ProjectProps = {
     description: string;
     imageUrl: string;
     link: string;
-  };
-// Collapsible project component with Lucide's ChevronRight icon
-const Project = ({ title, description, imageUrl, link }: ProjectProps) => {
-    const [isOpen, setIsOpen] = useState(false);
+};
 
+const Project = ({ title, description, imageUrl, link }: ProjectProps) => {
     return (
-        <div className="w-full mb-8 flex flex-col items-center">
-            <div
-                onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center justify-between cursor-pointer w-full max-w-md p-4 project rounded-lg"
-            >
-                <h3 className="text-xl font-medium">{title}</h3>
-                <ChevronRight
-                    className={`transition-transform duration-300 ${isOpen ? 'rotate-90' : ''}`}
-                />
-            </div>
-            <div
-                className={`transition-all duration-500 ease-in-out overflow-hidden transform ${isOpen ? 'max-h-screen opacity-100 scale-100' : 'max-h-0 opacity-0 scale-95'} w-full flex flex-col items-center`}
-            >
-                {isOpen && (
-                    <div className="flex flex-col items-center mt-4">
-                        <img src={imageUrl} alt={title} className="w-full max-w-xs rounded-lg mb-4" />
-                        <p className="mb-4">{description}</p>
-                        <a
-                            className="hover-underline-animation text-blue-600"
-                            href={link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <span>project link</span>
-                        </a>
-                    </div>
-                )}
-            </div>
+        <div className="w-full">
+            <Card>
+                <CardHeader>
+                    <CardTitle>{title}</CardTitle>
+                    <CardDescription>{description}</CardDescription>
+                </CardHeader>
+                <img src={imageUrl} alt={title} className="w-full h-48 object-cover rounded-t-lg" />
+                <CardFooter className="flex justify-center mt-4">
+                    <a
+                        className="text-blue-600 hover-underline-animation"
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Project Link
+                    </a>
+                </CardFooter>
+            </Card>
         </div>
     );
 };
@@ -109,7 +96,7 @@ export default function Projects() {
                     <span>Quillan Favey</span>
                 </Link>
                 <Link href="/" className="font-bold hover-underline-animation text-2xl">
-                    <span>back</span>
+                    <span>Back</span>
                 </Link>
             </header>
 
@@ -117,11 +104,11 @@ export default function Projects() {
                 <h1 className="text-5xl font-semibold mb-10 text-center">Projects</h1>
 
                 {/* Research Projects Section */}
-                <section className="text-center w-full">
+                <section className="text-center w-full mb-12">
                     <h2 id="research" className="text-3xl font-semibold mb-6">
                         Research Projects
                     </h2>
-                    <div>
+                    <div className="grid grid-cols-2 gap-8">
                         {researchProjects.map((project) => (
                             <Project
                                 key={project.id}
@@ -135,11 +122,11 @@ export default function Projects() {
                 </section>
 
                 {/* Coding Projects Section */}
-                <section className="text-center w-full mb-16">
+                <section className="text-center w-full mb-12">
                     <h2 id="coding" className="text-3xl font-semibold mb-6">
                         Coding Projects
                     </h2>
-                    <div>
+                    <div className="grid grid-cols-2 gap-8">
                         {codingProjects.map((project) => (
                             <Project
                                 key={project.id}
@@ -151,12 +138,13 @@ export default function Projects() {
                         ))}
                     </div>
                 </section>
-                 {/* Other stuff Section */}
-                 <section className="text-center w-full mb-16">
+
+                {/* Other Projects Section */}
+                <section className="text-center w-full mb-16">
                     <h2 id="other" className="text-3xl font-semibold mb-6">
-                        Other stuff
+                        Other Stuff
                     </h2>
-                    <div>
+                    <div className="grid grid-cols-2 gap-8">
                         {otherProjects.map((project) => (
                             <Project
                                 key={project.id}
