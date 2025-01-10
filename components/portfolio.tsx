@@ -11,18 +11,27 @@ import { MouseEventHandler } from 'react';
 
 export default function Portfolio() {
   const [activeSection, setActiveSection] = useState('projects');
-  const [theme, setTheme] = useState(() => {
-    // Retrieve the theme from localStorage or default to 'light'
-    return localStorage.getItem('theme') || 'light';
-  });
+  const [theme, setTheme] = useState('light'); // Default to 'light' during SSR
   const [animating, setAnimating] = useState(false);
+
+  // Load the theme from localStorage on the client side
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedTheme = localStorage.getItem('theme');
+      if (storedTheme) {
+        setTheme(storedTheme);
+      }
+    }
+  }, []);
 
   const toggleTheme = () => {
     setAnimating(true);
     setTimeout(() => {
       const newTheme = theme === 'light' ? 'dark' : 'light';
       setTheme(newTheme);
-      localStorage.setItem('theme', newTheme); // Save theme to localStorage
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('theme', newTheme); // Save theme to localStorage
+      }
       setAnimating(false);
     }, 100);
   };
