@@ -148,7 +148,7 @@ export default function Projects() {
                         Music
                     </h2>
                     <div className="grid grid-cols-2 gap-8">
-                    <AudioPlayer Title="qf-web/Good Intentions" src="Sommatif mix print.wav" defaultVolume={0.5} playbackRate={1} />
+                    <AudioPlayer Title="Good Intentions" src="Sommatif mix print.wav" defaultVolume={0.5} playbackRate={1} />
                     </div>
                 </section> 
             </div>
