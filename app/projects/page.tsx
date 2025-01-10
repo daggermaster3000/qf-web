@@ -3,6 +3,7 @@
 
 import Link from 'next/link';
 import { Card,  CardDescription, CardHeader,CardFooter, CardTitle } from "@/components/ui/card"
+import AudioPlayer from '@/components/ui/audioComponent';
 
 // Data for projects
 const codingProjects = [
@@ -137,25 +138,19 @@ export default function Projects() {
                             />
                         ))}
                     </div>
+                    
                 </section>
+                
 
                 {/* Other Projects Section */}
-                {/* <section className="text-center w-full mb-16">
+                 <section className="text-center w-full mb-16">
                     <h2 id="other" className="text-3xl font-semibold mb-6">
-                        Other Stuff
+                        Music
                     </h2>
                     <div className="grid grid-cols-2 gap-8">
-                        {otherProjects.map((project) => (
-                            <Project
-                                key={project.id}
-                                title={project.title}
-                                description={project.description}
-                                imageUrl={project.imageUrl}
-                                link={project.link}
-                            />
-                        ))}
+                    <AudioPlayer Title="Good Intentions" src="qf-web/Sommatif mix print.wav" defaultVolume={0.5} playbackRate={1} />
                     </div>
-                </section> */}
+                </section> 
             </div>
         </div>
     );

@@ -10,18 +10,21 @@ import Link from 'next/link';
 import { MouseEventHandler } from 'react';
 
 export default function Portfolio() {
-  const [activeSection, setActiveSection] = useState('projects')
-  const [theme, setTheme] = useState('light')
+  const [activeSection, setActiveSection] = useState('projects');
+  const [theme, setTheme] = useState(() => {
+    // Retrieve the theme from localStorage or default to 'light'
+    return localStorage.getItem('theme') || 'light';
+  });
   const [animating, setAnimating] = useState(false);
 
   const toggleTheme = () => {
-
+    setAnimating(true);
     setTimeout(() => {
-      setTheme(theme === 'light' ? 'dark' : 'light');
-      setAnimating(true);
-      // Stop the animation after the sweep completes
+      const newTheme = theme === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+      localStorage.setItem('theme', newTheme); // Save theme to localStorage
+      setAnimating(false);
     }, 100);
-    setAnimating(false);
   };
 
   useEffect(() => {
@@ -129,7 +132,23 @@ export default function Portfolio() {
               <CardHeader><CardTitle>Music</CardTitle>
               </CardHeader>
               <CardContent>
-
+              <ul className="list-disc pl-5">
+                  <li>
+                    <Link href="https://www.youtube.com/watch?v=ucPeQpzOHj8" className="hover-underline-animation">
+                      <span>Low lights</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="https://www.youtube.com/watch?v=CW8CQbgKv0Y" className="hover-underline-animation">
+                      <span>Ruins</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/projects#yosesh" className="hover-underline-animation">
+                      <span>Drum Session project</span>
+                    </Link>
+                  </li>
+                </ul>
               </CardContent>
 
             </Card>
