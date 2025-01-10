@@ -44,8 +44,9 @@ export default function Portfolio() {
         <Button onClick={toggleTheme} variant="outline">
           {theme === 'light' ? <FaSun /> : <FaMoon />}
         </Button>
+        
       </header>
-
+      <p className='p-4 flex justify-between items-center alert'>Note: I'm still working on this site</p>
       <main className="container mx-auto px-4 py-8" onMouseMove={handleMouseMove}>
         <section
           className="h-[50vh] mb-12 relative flex items-center justify-center rounded-lg overflow-hidden"
@@ -69,6 +70,7 @@ export default function Portfolio() {
               <span>Music</span>
             </Link>
           </h1>
+         
         </section>
 
         <Tabs value={activeSection} onValueChange={setActiveSection} className="mb-12">
