@@ -46,7 +46,7 @@ export default function Portfolio() {
         </Button>
         
       </header>
-      <p className='p-4 flex justify-between items-center alert'>Note: I'm still working on this site</p>
+      <p className='p-4 flex justify-between items-center alert'>Note: I`&apos;`m still working on this site</p>
       <main className="container mx-auto px-4 py-8" onMouseMove={handleMouseMove}>
         <section
           className="h-[50vh] mb-12 relative flex items-center justify-center rounded-lg overflow-hidden"
