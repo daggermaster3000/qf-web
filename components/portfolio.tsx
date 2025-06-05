@@ -1,18 +1,17 @@
 'use client'
 import React, { useState, useEffect, useRef, Suspense } from 'react'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { FaSun, FaMoon, FaBars, FaTimes } from 'react-icons/fa';
+import { FaTimes } from 'react-icons/fa';
 import { Canvas } from '@react-three/fiber';
 import Model from '@/components/Model'
 import Link from 'next/link';
 import { MouseEventHandler } from 'react';
+import Projects from '@/components/Projects'
 
 export default function Portfolio() {
-  const [activeSection, setActiveSection] = useState('projects');
+  // const [activeSection, setActiveSection] = useState('projects');
   const [theme, setTheme] = useState('light');
-  const [animating, setAnimating] = useState(false);
+  // const [animating, setAnimating] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const mouse = useRef({ x: 0, y: 0 });
 
@@ -23,15 +22,15 @@ export default function Portfolio() {
     }
   }, []);
 
-  const toggleTheme = () => {
-    setAnimating(true);
-    setTimeout(() => {
-      const newTheme = theme === 'light' ? 'dark' : 'light';
-      setTheme(newTheme);
-      if (typeof window !== 'undefined') localStorage.setItem('theme', newTheme);
-      setAnimating(false);
-    }, 100);
-  };
+  // const toggleTheme = () => {
+  //   setAnimating(true);
+  //   setTimeout(() => {
+  //     const newTheme = theme === 'light' ? 'dark' : 'light';
+  //     setTheme(newTheme);
+  //     if (typeof window !== 'undefined') localStorage.setItem('theme', newTheme);
+  //     setAnimating(false);
+  //   }, 100);
+  // };
 
   useEffect(() => {
     document.body.className = theme;
@@ -47,20 +46,21 @@ export default function Portfolio() {
   const closeSidebar = () => setSidebarOpen(false);
 
   return (
+
     <div
-      className={`min-h-screen ${theme} ${animating ? 'sweep-animation' : ''} transition-colors duration-1000 relative`}
+      className={`min-h-screen ${theme} relative`}
       onMouseMove={handleMouseMove}
     >
       {/* Header with z-30 to stay on top */}
       <header className="p-4 flex justify-between items-center relative">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 hover:scale-105">
           <Button>
-          <a className="text-2xl font-bold" onClick={() => setSidebarOpen(!sidebarOpen)}>Quillan Favey</a>
-        </Button>
+            <a className="text-2xl font-bold " onClick={() => setSidebarOpen(!sidebarOpen)}>Quillan Favey</a>
+          </Button>
         </div>
-        <Button onClick={toggleTheme} variant="outline">
+        {/* <Button onClick={toggleTheme} variant="outline">
           {theme === 'light' ? <FaSun /> : <FaMoon />}
-        </Button>
+        </Button> */}
       </header>
 
       {/* Sidebar */}
@@ -70,18 +70,15 @@ export default function Portfolio() {
           <Button size="sm" variant="ghost" onClick={closeSidebar}><FaTimes /></Button>
         </div>
         <nav className="mt-4 flex flex-col gap-6 p-4">
-          <Link href="/projects#research" onClick={closeSidebar} className="hover:underline">Neuroscience</Link>
-          <Link href="/projects#coding" onClick={closeSidebar} className="hover:underline">Coding</Link>
-          <Link href="/music" onClick={closeSidebar} className="hover:underline">Music</Link>
+          <Link href="#research" onClick={closeSidebar} className="hover:underline">Neuroscience</Link>
+          <Link href="#coding" onClick={closeSidebar} className="hover:underline">Coding</Link>
+          <Link href="#music" onClick={closeSidebar} className="hover:underline">Music</Link>
         </nav>
       </aside>
 
       {/* Main content */}
-      <main className="container mx-auto px-4 py-8">
-        <section className="h-[80vh] mb-12 relative overflow-hidden rounded-lg">
-          {/* Canvas Parallax Background */}
-          <div
-            className="absolute inset-0 z-0 transition-transform duration-200"
+      <div
+            className="fixed inset-0 z-0 transition-transform duration-200"
             style={{
               transform: `translate3d(${mouse.current.x * 0.01}px, ${mouse.current.y * 0.01}px, 0)`,
             }}
@@ -93,77 +90,46 @@ export default function Portfolio() {
               </Suspense>
             </Canvas>
           </div>
+      <main className="container mx-auto px-4 py-8 backdrop-blur-md">
+        
+        <section className="h-[100vh] mb-12 relative overflow-hidden rounded-lg">
+          
+          
           {/* Text Overlay */}
-          <div className="relative z-10 h-full flex flex-col justify-center items-center text-center text-white bg-black/30 backdrop-blur-md">
-            <h1 className="text-5xl font-bold tracking-tight leading-tight">Welcome to my Portfolio</h1>
-            <p className="text-xl mt-4">Explore Neuroscience, Coding, and Music</p>
+          <div className="relative z-10 h-full flex flex-col justify-center items-center text-center text-white backdrop-blur-md">
+            <h1 className="text-5xl font-bold tracking-tight leading-tight drop-shadow-[2px_2px_4px_#000]">
+              Welcome to my Portfolio
+            </h1>
+            <div className="flex flex-wrap justify-center mt-6 gap-4">
+              <a
+                href="#research"
+                className="text-xl font-medium hover:scale-105 hover:text-blue-300 transition-transform duration-200 drop-shadow-[1px_1px_2px_#000]"
+              >
+                Neuroscience
+              </a>
+              <a
+                href="#coding"
+                className="text-xl font-medium hover:scale-105 hover:text-green-300 transition-transform duration-200 drop-shadow-[1px_1px_2px_#000]"
+              >
+                Coding
+              </a>
+              <a
+                href="#music"
+                className="text-xl font-medium hover:scale-105 hover:text-pink-300 transition-transform duration-200 drop-shadow-[1px_1px_2px_#000]"
+              >
+                Music
+              </a>
+            </div>
           </div>
+          
+
+        </section>
+        <section>
+
+   <div className='relative'><Projects ></Projects></div>
+
         </section>
 
-        <Tabs value={activeSection} onValueChange={setActiveSection} className="mb-12">
-          <TabsList className="grid grid-cols-4 w-full max-w-md mx-auto gap-4">
-            <TabsTrigger value="projects">Projects</TabsTrigger>
-            <TabsTrigger value="music">Music</TabsTrigger>
-            <TabsTrigger value="experience">Experience</TabsTrigger>
-            <TabsTrigger value="cv">CV</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="projects">
-            <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle>Projects</CardTitle>
-                <CardDescription>Coding and research projects</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="list-disc pl-5">
-                  <li><Link href="/projects#csf-flow-dynamics" className="hover:underline">CSF flow dynamics in zebrafish</Link></li>
-                  <li><Link href="/projects#muscle-fiber-analysis" className="hover:underline">Muscle fiber anisotropy</Link></li>
-                  <li><Link href="/websites" className="hover:underline">Websites I designed</Link></li>
-                  <li><Link href="/projects#ppg-heartrate" className="hover:underline">Remote heartrate PPG</Link></li>
-                  <li><Link href="/other-stuff" className="hover:underline">Other stuff</Link></li>
-                </ul>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="music">
-            <Card className="shadow-lg">
-              <CardHeader><CardTitle>Music</CardTitle></CardHeader>
-              <CardContent>
-                <ul className="list-disc pl-5">
-                  <li><Link href="https://www.youtube.com/watch?v=ucPeQpzOHj8" className="hover:underline">Low lights</Link></li>
-                  <li><Link href="https://www.youtube.com/watch?v=CW8CQbgKv0Y" className="hover:underline">Ruins</Link></li>
-                  <li><Link href="/projects#yosesh" className="hover:underline">Drum Session project</Link></li>
-                </ul>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="experience">
-            <Card className="shadow-lg">
-              <CardHeader>
-                <CardTitle>Experience</CardTitle>
-                <CardDescription>Professional and academic experience</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="list-disc pl-5">
-                  <li>MSc in Neuroscience - University of Zurich</li>
-                  <li>Bsc in Biology - University of Lausanne</li>
-                </ul>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="cv">
-            <Card className="shadow-lg">
-              <CardHeader><CardTitle>Curriculum Vitae</CardTitle></CardHeader>
-              <CardContent>
-                <p>Download my full CV here:</p>
-                <Button className="mt-4">Download CV</Button>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
       </main>
 
       <footer className="p-4 text-center">

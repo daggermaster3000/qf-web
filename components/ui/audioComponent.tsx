@@ -6,6 +6,7 @@ interface AudioPlayerProps {
   src: string; // Path to the audio file
   defaultVolume?: number; // Default volume (0 to 1)
   playbackRate?: number; // Playback speed
+  description: string;
 }
 
 export default function AudioPlayer({
@@ -13,6 +14,7 @@ export default function AudioPlayer({
   src,
   defaultVolume = 1,
   playbackRate = 1,
+  description,
 }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(defaultVolume);
@@ -59,8 +61,9 @@ export default function AudioPlayer({
   };
 
   return (
-    <div className="p-4 border rounded-lg bg-slate-900 text-white flex flex-col items-center space-y-4">
+    <div className="p-4 border rounded-lg bg-white text-slate flex flex-col items-center space-y-4">
       <h3>{Title}</h3>
+      <div className="text-sm text-muted-foreground">{description}</div>
       <audio
         ref={audioRef}
         src={src}
