@@ -9,7 +9,7 @@ const codingProjects = [
     {
         title: 'Oscilloscop.',
         description: 'A webpage implementation of an oscilloscope to visualize sound waves',
-        imageUrl: '/oscilloscop.png',
+        imageUrl: '/qf-web/oscilloscop.png',
         link: 'https://oscilloscop.vercel.app/',
         id: 'oscilloscop'
     },
