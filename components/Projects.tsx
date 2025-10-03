@@ -107,7 +107,7 @@ export default function Projects() {
                     <h1 id="research" className="pb-20 text-white text-5xl font-bold tracking-tight leading-tight drop-shadow-[2px_2px_4px_#000]">
                         Research Projects
                     </h1>
-                    <div className="grid grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {researchProjects.map((project) => (
                             <Project
                                 key={project.id}
@@ -125,7 +125,7 @@ export default function Projects() {
                     <h1 id="coding" className="pb-20 text-white text-5xl font-bold tracking-tight leading-tight drop-shadow-[2px_2px_4px_#000]">
                         Coding Projects
                     </h1>
-                    <div className="grid grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {codingProjects.map((project) => (
                             <Project
                                 key={project.id}
@@ -145,7 +145,7 @@ export default function Projects() {
                     <h1 id="music" className="pb-20 text-white text-5xl font-bold tracking-tight leading-tight drop-shadow-[2px_2px_4px_#000]">
                         Music
                     </h1>
-                    <div className="grid grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <Project
                             key={"aprifreeze"}
                             title={"Aprifreeze soundtrack"}
