@@ -7,6 +7,13 @@ import AudioPlayer from '@/components/ui/audioComponent';
 // Data for projects
 const codingProjects = [
     {
+        title: 'Oscilloscop.',
+        description: 'A webpage implementation of an oscilloscope to visualize sound waves',
+        imageUrl: 'qf-web/oscilloscop.png',
+        link: 'https://oscilloscop.vercel.app/src/index.html',
+        id: 'oscilloscop'
+    },
+    {
         title: 'Plotdelice',
         description: 'A small collection of functions for custom plots in python',
         imageUrl: 'https://raw.githubusercontent.com/daggermaster3000/plotdelice/refs/heads/main/assets/image.png',
