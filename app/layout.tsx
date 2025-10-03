@@ -25,6 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+
+        <script defer src="https://eqlair-analytics.vercel.app/script.js" data-website-id="ec4b4cd8-5fa9-440e-b361-06ab67316440"></script>
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
